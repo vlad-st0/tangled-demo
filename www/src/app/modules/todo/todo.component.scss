@@ -1,0 +1,56 @@
+@use "../../utils/variables" as var;
+
+.todo {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 50px 50px 0 30%;
+  width: 50%;
+  justify-content: flex-start;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 10px 20px 10px;
+  width: 200px;
+  height: 200px;
+  background-color: var.$secondary-color;
+  color: var.$secondary-text-color;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+mat-form-field {
+  margin: 0 10px 0 10px;
+  input,
+  textarea {
+    color: white;
+  }
+}
+
+::ng-deep .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: var.$secondary-text-color !important;
+}
+
+::ng-deep.mat-form-field-underline,
+::ng-deep.mat-form-field-ripple {
+  background-color: var.$secondary-text-color !important;
+}
+
+.priority {
+  border: 1px var.$secondary-text-color solid;
+}
+
+.completed {
+  opacity: 70%;
+}

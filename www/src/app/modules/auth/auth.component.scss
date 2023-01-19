@@ -1,0 +1,43 @@
+@use "../../utils/variables" as var;
+
+.auth {
+  flex-direction: row;
+  margin-top: 10%;
+}
+
+.auth-card {
+  background-color: var.$secondary-color;
+  color: var.$secondary-text-color;
+}
+
+button {
+  min-width: 50%;
+  background-color: var.$secondary-text-color;
+  color: white;
+  margin: 10px 0 20px 0;
+}
+
+mat-form-field {
+  margin: 10px 10px 0 10px;
+  min-width: 300px;
+  input {
+    color: white;
+  }
+}
+
+::ng-deep .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: var.$secondary-text-color !important;
+}
+
+::ng-deep.mat-form-field-underline,
+::ng-deep.mat-form-field-ripple {
+  background-color: var.$secondary-text-color !important;
+}
+
+a {
+  color: var.$secondary-text-color;
+}

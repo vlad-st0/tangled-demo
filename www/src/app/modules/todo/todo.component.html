@@ -1,0 +1,77 @@
+<div class="flex todo">
+  <ng-container *ngFor="let todo of formArray.controls; let i = index">
+    <ng-container [formGroup]="todo">
+      <mat-card
+        class="item"
+        [class.priority]="todo.controls['priority'].value"
+        [class.completed]="todo.controls['completed'].value"
+      >
+        <div>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              placeholder="Title"
+              formControlName="title"
+            />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <textarea
+              cdkTextareaAutosize
+              type="text"
+              matInput
+              placeholder="Note"
+              formControlName="note"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="buttons">
+          <button mat-icon-button (click)="setPriority(todo)">
+            <mat-icon>
+              <ng-container
+                *ngIf="todo.controls['priority'].value; else priority"
+                >report_off</ng-container
+              >
+              <ng-template #priority>report</ng-template>
+            </mat-icon>
+          </button>
+          <button mat-icon-button (click)="setCompleted(todo)">
+            <mat-icon>
+              <ng-container
+                *ngIf="todo.controls['completed'].value; else completed"
+              >
+                check_circle
+              </ng-container>
+            </mat-icon>
+            <ng-template #completed>check_circle_outline</ng-template>
+          </button>
+          <button
+            mat-icon-button
+            (click)="
+              todo.controls['id'].value == 0
+                ? createTodo(todo)
+                : updateTodo(todo)
+            "
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteTodo(todo.value, i)">
+            <mat-icon>highlight_off</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+
+  <mat-card class="item">
+    <div class="buttons">
+      <button mat-icon-button (click)="addTodo()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,8 @@
+FROM node:16-alpine
+
+WORKDIR /www
+COPY package.json yarn.lock angular.json tsconfig.json tsconfig.app.json ./
+RUN yarn install
+ARG WEB_PORT
+
+CMD yarn ng serve --host 0.0.0.0 --port ${WEB_PORT}

@@ -1,0 +1,63 @@
+networks:
+  tangledhub:
+
+
+volumes:
+  mysql-data:
+  www-data:
+
+
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_DATABASE=${DB_NAME}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - tangledhub
+
+  api:
+    build: ./api
+    ports:
+      - ${API_PORT}:${API_PORT}
+    environment:
+      - PORT=${API_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - MIKRO_ORM_TYPE=${DB_DRIVER}
+      - MIKRO_ORM_USER=${DB_USER}
+      - MIKRO_ORM_PASSWORD=${DB_PASS}
+      - MIKRO_ORM_HOST=db # name of database service
+      - MIKRO_ORM_PORT=${DB_PORT}
+      - MIKRO_ORM_DB_NAME=${DB_NAME}
+    volumes:
+      - ./api/src:/api/src:ro
+    depends_on:
+      - db
+    networks:
+      - tangledhub
+
+  web:
+    build: ./www
+    volumes:
+      - www-data:/www/public:rw
+    networks:
+      - tangledhub
+
+  server:
+    image: caddy:2.6-alpine
+    depends_on:
+      web:
+        condition: service_completed_successfully
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - www-data:/www/public:ro
+    ports:
+      - ${WEB_PORT}:443
+    networks:
+      - tangledhub
