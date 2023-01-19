@@ -6,6 +6,6 @@ Project structure:
 
 Makefile commands:
 - dev = builds dev docker
-- prod = builds prod docker (cert is auto-generated, browser will pop-up security risk)
+- prod = builds prod docker
 
-App will be running on: https://localhost:8080
+App will be running on: http://127.0.0.1:8080

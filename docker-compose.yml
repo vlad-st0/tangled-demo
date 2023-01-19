@@ -58,6 +58,6 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - www-data:/www/public:ro
     ports:
-      - ${WEB_PORT}:443
+      - ${WEB_PORT}:80
     networks:
       - tangledhub
